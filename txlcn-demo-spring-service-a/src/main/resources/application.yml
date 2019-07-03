@@ -1,0 +1,57 @@
+##################
+# 这个是启动本服务的配置文件，其它的application-xxx.properties 是开发者的个性化配置，不用关心。
+# 你可以在 https://txlcn.org/zh-cn/docs/setting/client.html 看到所有的个性化配置
+#################
+# tx-manager 的配置地址，可以指定TM集群中的任何一个或多个地址
+# tx-manager 下集群策略，每个TC都会从始至终<断线重连>与TM集群保持集群大小个连接。
+# TM方，每有TM进入集群，会找到所有TC并通知其与新TM建立连接。
+# TC方，启动时按配置与集群建立连接，成功后，会再与集群协商，查询集群大小并保持与所有TM的连接
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+ribbon:
+  ConnectTimeout: 5000
+  MaxAutoRetriesNextServer: 0
+  ReadTimeout: 5000
+server:
+  port: 12011
+spring:
+  application:
+    name: txlcn-demo-spring-service-a
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      maximum-pool-size: 20
+    url: jdbc:mysql://127.0.0.1:3306/txlcn-demo?characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: root
+
+# 是否开启日志记录。当开启以后需要配置对应logger的数据库连接配置信息。
+tx-lcn:
+#  client:
+#    manager-address: 127.0.0.1:8070  # 默认连接 127.0.0.1:8070
+  logger:
+    enabled: true
+    driver-class-name: ${spring.datasource.driver-class-name}
+    jdbc-url: ${spring.datasource.url}
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: FULL
+  compression:
+    response:
+      enabled: true
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048

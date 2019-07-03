@@ -1,0 +1,16 @@
+mybatis:
+    configuration:
+        map-underscore-to-camel-case: true
+        use-generated-keys: true
+server:
+    port: 12003
+spring:
+    application:
+        name: txlcn-demo-spring-service-c
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        hikari:
+            maximum-pool-size: 20
+        password: root
+        url: jdbc:mysql://127.0.0.1:3306/txlcn-demo?characterEncoding=UTF-8&serverTimezone=GMT%2B8
+        username: root

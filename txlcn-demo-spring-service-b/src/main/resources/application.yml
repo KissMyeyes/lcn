@@ -1,0 +1,15 @@
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    use-generated-keys: true
+server:
+  port: 12002
+spring:
+  application:
+    name: txlcn-demo-spring-service-b
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/txlcn-demo?characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
